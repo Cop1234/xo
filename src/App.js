@@ -1,137 +1,164 @@
-import { Fragment, useState } from "react";
-import styled from "styled-components";
+import React, { useState, useEffect, Fragment } from "react";
 
-const Wrapper = styled.div`
-  /* height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
-  position: absolute; */
-`;
+import Board from "./components/board/Board";
+import History from "./components/history/History";
+import "./App.css";
 
-const BtnXO = styled.button`
-  height: 33px;
-  width: 33px;
-`;
+const Game = () => {
+  const [boardSize, setBoardSize] = useState(3); // Default board size is 3
+  const [squaresArray, setSquaresArray] = useState([]);
+  const [xIsNext, setXIsNext] = useState(true);
+  const [history, setHistory] = useState([]);
+  const [winner, setWinner] = useState();
+  const [numOfFilledSquares, setNumOfFilledSquares] = useState(0);
+  const [showBoard, setShowBoard] = useState(false); // State to control whether to show the board or not
 
-function Square({ value, onSquareClick }) {
-  return (
-    <BtnXO className="square" onClick={onSquareClick}>
-      {value}
-    </BtnXO>
-  );
-}
+  const getAllSolutions = () => {
+    const solutions = [];
+    const diagonal1 = [];
+    const diagonal2 = [];
 
-function Board({ xIsNext, squares, onPlay }) {
-  function handleClick(i) {
-    //ป้องกันการกดซ้ำที่เดิมแล้วเปลี่ยนค่า
-    if (squares[i] || calculateWinner(squares)) {
-      return;
-    }
-    const nextSquares = squares.slice();
-    if (xIsNext) {
-      nextSquares[i] = "x";
-    } else {
-      nextSquares[i] = "0";
+    for (let rowIndex = 0; rowIndex < boardSize; rowIndex++) {
+      const rowSolution = [];
+      const columnSolution = [];
+      diagonal1.push(rowIndex * boardSize + rowIndex);
+      diagonal2.push(rowIndex * boardSize + (boardSize - rowIndex - 1));
+      const rowStart = rowIndex * boardSize;
+      for (let columnIndex = 0; columnIndex < boardSize; columnIndex++) {
+        rowSolution.push(rowStart + columnIndex);
+        columnSolution.push(columnIndex * boardSize + rowIndex);
+      }
+      solutions.push(rowSolution);
+      solutions.push(columnSolution);
     }
 
-    onPlay(nextSquares);
-  }
+    solutions.push(diagonal1);
+    solutions.push(diagonal2);
 
-  const winner = calculateWinner(squares);
-  let status;
-  if (winner) {
-    status = "Winner: " + winner;
-  } else {
-    status = "Next player: " + (xIsNext ? "X" : "O");
-  }
+    return solutions;
+  };
 
-  return (
-    <Wrapper>
-      <div>
-        <div className="status">{status}</div>
-        <div className="board-row">
-          <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
-          <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
-          <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
-        </div>
-        <div className="board-row">
-          <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
-          <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
-          <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
-        </div>
-        <div className="board-row">
-          <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
-          <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
-          <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
-        </div>
-      </div>
-    </Wrapper>
-  );
-}
+  const solutions = getAllSolutions();
 
-export default function Game() {
-  const [history, setHistory] = useState([Array(9).fill(null)]);
-  const [currentMove, setCurrentMove] = useState(0);
-  const xIsNext = currentMove % 2 === 0;
-  const currentSquares = history[currentMove];
+  const squareClickHandler = (squareNumber) => () => {
+    if (squaresArray[squareNumber] || winner) return;
+    setNumOfFilledSquares((prev) => prev + 1);
+    const value = xIsNext ? "X" : "O";
+    squaresArray[squareNumber] = { value: value, winner: "" };
+    const newHistory = [...history];
+    newHistory.push(`ผู้เล่น ${xIsNext ? "X" : "O"} เลือกช่อง ${squareNumber}`);
+    setHistory(newHistory);
+    setXIsNext((prev) => !prev);
+  };
 
-  function handlePlay(nextSquares) {
-    const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
-    setHistory(nextHistory);
-    setCurrentMove(nextHistory.length - 1);
-  }
-
-  function jumpTo(nextMove) {
-    setCurrentMove(nextMove);
-  }
-
-  const moves = history.map((squares, move) => {
-    let description;
-    if (move > 0) {
-      description = "Go to move #" + move;
-    } else {
-      description = "Go to game start";
+  const whoWon = () => {
+    for (
+      let solutionIndex = 0;
+      solutionIndex < solutions.length;
+      solutionIndex++
+    ) {
+      const solution = solutions[solutionIndex];
+      let firstSquare = squaresArray[solution[0]];
+      if (!firstSquare) continue;
+      firstSquare = firstSquare.value;
+      if (
+        solution.reduce(
+          (acc, squareIndex) =>
+            acc &&
+            squaresArray[squareIndex] &&
+            firstSquare === squaresArray[squareIndex].value,
+          true
+        )
+      ) {
+        solution.map(
+          (squareIndex) =>
+            (squaresArray[squareIndex] = {
+              ...squaresArray[squareIndex],
+              winner: "winner",
+            })
+        );
+        return firstSquare;
+      }
     }
-    return (
-      <li key={move}>
-        <button onClick={() => jumpTo(move)}>{description}</button>
-      </li>
-    );
-  });
+  };
+
+  const resetHandler = () => {
+    setXIsNext(true);
+    setSquaresArray([]);
+    setWinner();
+    setHistory([]);
+    setNumOfFilledSquares(0);
+  };
+
+  const changeSizeHandler = () => {
+    setShowBoard(false); // Reset showBoard state
+  };
+
+  const handleBoardSizeSubmit = (e) => {
+    e.preventDefault();
+    setShowBoard(true);
+  };
+
+  const saveHistory = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/history", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ boardSize, winner }),
+      });
+      const data = await response.json();
+      console.log(data.message);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  useEffect(() => {
+    setWinner(whoWon());
+  }, [xIsNext]);
+
+  let titleText;
+  if (winner) titleText = `${winner} เป็นผู็ชนะ!!!`;
+  else {
+    if (numOfFilledSquares === boardSize * boardSize) titleText = `เสมอ`;
+    else titleText = `ผู้เล่น ${xIsNext ? "X" : "O"}'เป็นคนถัดไป`;
+  }
 
   return (
-    <div className="game">
-      <div className="game-board">
-        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
-      </div>
-      <div className="game-info">
-        <ol>{moves}</ol>
-      </div>
+    <div className="game-area">
+      {!showBoard && (
+        <form onSubmit={handleBoardSizeSubmit}>
+          <label htmlFor="boardSizeInput">
+            กรอกขนาดของบอร์ดที่ต้องการเล่น:
+          </label>
+          <input
+            type="number"
+            min={"1"}
+            id="boardSizeInput"
+            value={boardSize}
+            onChange={(e) => setBoardSize(parseInt(e.target.value))}
+          />
+          <button type="submit">เริ่มเกม</button>
+        </form>
+      )}
+      {showBoard && (
+        <Fragment>
+          <h3>{titleText}</h3>
+          <Board
+            boardSize={boardSize}
+            squaresArray={squaresArray}
+            squareClickHandler={squareClickHandler}
+          />
+          <button onClick={resetHandler}>รีเซ็ต</button>
+          <button onClick={changeSizeHandler}>เปลี่ยนขนาดบอร์ด</button>
+          <button onClick={saveHistory}>บันทึกประวัติการเล่น</button>
+          <History history={history} />
+        </Fragment>
+      )}
     </div>
   );
-}
+};
 
-function calculateWinner(squares) {
-  //TODO : Auto check win
-  const lines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-  ];
-  for (let i = 0; i < lines.length; i++) {
-    const [a, b, c] = lines[i];
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
-    }
-  }
-  return null;
-}
+export default Game;

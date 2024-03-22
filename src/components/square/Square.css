@@ -1,0 +1,18 @@
+.square {
+    height: 13vh;
+    width: 13vh;
+    font-size: 11vh;
+    font-weight: bold;
+}
+
+.X {
+    color: red;
+}
+
+.O {
+    color: blue;
+}
+
+.winner {
+    background: green;
+}
