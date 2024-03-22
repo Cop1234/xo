@@ -2,7 +2,9 @@ const express = require("express");
 const mysql = require("mysql");
 
 const app = express();
-const port = 3001;
+const port = 3000;
+
+app.use(express.json());
 
 // MySQL connection
 const connection = mysql.createConnection({
@@ -22,7 +24,7 @@ connection.connect((err) => {
 
 // API endpoint to insert data
 app.post("/history", (req, res) => {
-  const { boardSize, winner } = JSON.stringify(req.body);
+  const { boardSize, winner } = req.body;
   const insertQuery = `INSERT INTO History (boardSize, winner) VALUES (?, ?)`;
   connection.query(insertQuery, [boardSize, winner], (err, result) => {
     if (err) {

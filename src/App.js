@@ -46,7 +46,9 @@ const Game = () => {
     const value = xIsNext ? "X" : "O";
     squaresArray[squareNumber] = { value: value, winner: "" };
     const newHistory = [...history];
-    newHistory.push(`ผู้เล่น ${xIsNext ? "X" : "O"} เลือกช่อง ${squareNumber}`);
+    newHistory.push(
+      `ผู้เล่น ${xIsNext ? "X" : "O"} เลือกช่อง ${squareNumber + 1}`
+    );
     setHistory(newHistory);
     setXIsNext((prev) => !prev);
   };
@@ -100,14 +102,18 @@ const Game = () => {
   };
 
   const saveHistory = async () => {
+    const boardSize = "3x3";
+    const winner = "Player X";
+    console.log("Now1");
     try {
-      const response = await fetch("http://localhost:3001/history", {
+      const response = await fetch("http://localhost:3000/history", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ boardSize, winner }),
       });
+      console.log(response);
       const data = await response.json();
       console.log(data.message);
     } catch (error) {
