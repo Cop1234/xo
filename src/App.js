@@ -2,6 +2,7 @@ import React, { useState, useEffect, Fragment } from "react";
 
 import Board from "./components/board/Board";
 import History from "./components/history/History";
+import Axios from "axios";
 import "./App.css";
 
 const Game = () => {
@@ -11,7 +12,8 @@ const Game = () => {
   const [history, setHistory] = useState([]);
   const [winner, setWinner] = useState();
   const [numOfFilledSquares, setNumOfFilledSquares] = useState(0);
-  const [showBoard, setShowBoard] = useState(false); // State to control whether to show the board or not
+  const [showBoard, setShowBoard] = useState(false);
+  const [record, setRecord] = useState(false);
 
   const getAllSolutions = () => {
     const solutions = [];
@@ -102,23 +104,23 @@ const Game = () => {
   };
 
   const saveHistory = async () => {
-    const boardSize = "3x3";
-    const winner = "Player X";
-    console.log("Now1");
-    try {
-      const response = await fetch("http://localhost:3000/history", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ boardSize, winner }),
-      });
-      console.log(response);
-      const data = await response.json();
-      console.log(data.message);
-    } catch (error) {
-      console.error("Error:", error);
-    }
+    // const boardSize = "3x3";
+    // const winner = "Player X";
+    // console.log("Now1");
+    // try {
+    //   const response = await fetch("http://localhost:3000/history", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({ boardSize, winner }),
+    //   });
+    //   console.log(response);
+    //   const data = await response.json();
+    //   console.log(data.message);
+    // } catch (error) {
+    //   console.error("Error:", error);
+    // }
   };
 
   useEffect(() => {
