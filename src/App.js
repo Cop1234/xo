@@ -13,7 +13,7 @@ const Game = () => {
   const [winner, setWinner] = useState();
   const [numOfFilledSquares, setNumOfFilledSquares] = useState(0);
   const [showBoard, setShowBoard] = useState(false);
-  const [record, setRecord] = useState(false);
+  const [record, setRecord] = useState([]);
 
   const getAllSolutions = () => {
     const solutions = [];
@@ -103,24 +103,25 @@ const Game = () => {
     setShowBoard(true);
   };
 
-  const saveHistory = async () => {
-    // const boardSize = "3x3";
-    // const winner = "Player X";
-    // console.log("Now1");
-    // try {
-    //   const response = await fetch("http://localhost:3000/history", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({ boardSize, winner }),
-    //   });
-    //   console.log(response);
-    //   const data = await response.json();
-    //   console.log(data.message);
-    // } catch (error) {
-    //   console.error("Error:", error);
-    // }
+  const getRecord = () => {
+    Axios.get("http://localhost:3001/record").then((response) => {
+      setRecord(response.data);
+    });
+  };
+
+  const saveRecord = () => {
+    Axios.post("http://localhost:3001/saveRecord", {
+      boardSize: boardSize,
+      winner: titleText,
+    }).then(() => {
+      setRecord([
+        ...record,
+        {
+          boardSize: boardSize,
+          winner: titleText,
+        },
+      ]);
+    });
   };
 
   useEffect(() => {
@@ -161,8 +162,17 @@ const Game = () => {
           />
           <button onClick={resetHandler}>รีเซ็ต</button>
           <button onClick={changeSizeHandler}>เปลี่ยนขนาดบอร์ด</button>
-          <button onClick={saveHistory}>บันทึกประวัติการเล่น</button>
+          <button onClick={saveRecord}>บันทึกประวัติการเล่น</button>
           <History history={history} />
+          <button onClick={getRecord}>แสดงประวัติการเล่น XO </button>
+          {record.map((val, key) => {
+            return (
+              <div>
+                <p>Board Size {val.boardSize}</p>
+                <p>Winner {val.winner}</p>
+              </div>
+            );
+          })}
         </Fragment>
       )}
     </div>
