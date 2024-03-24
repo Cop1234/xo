@@ -20,4 +20,5 @@
 20. ![image](https://github.com/Cop1234/xo/assets/98316787/8ea57019-94de-444e-b7b0-97d4e393d991)
 21. เมื่อติดตั้งเสร็จให้ cd xo
 22. ![image](https://github.com/Cop1234/xo/assets/98316787/da97bfd3-a140-4f69-b4a4-8fef28388efb)
-
+23. เมื่อ cd xo แล้วให้ใช้คำสั่ง npm i เพื่อติดตั้ง node_modules
+24. ![image](https://github.com/Cop1234/xo/assets/98316787/9e2fbd41-0e98-4469-833b-0b50533ce449)
