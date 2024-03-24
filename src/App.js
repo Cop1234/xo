@@ -95,7 +95,12 @@ const Game = () => {
   };
 
   const changeSizeHandler = () => {
-    setShowBoard(false); // Reset showBoard state
+    setShowBoard(false);
+    setXIsNext(true);
+    setSquaresArray([]);
+    setWinner();
+    setHistory([]);
+    setNumOfFilledSquares(0);
   };
 
   const handleBoardSizeSubmit = (e) => {
@@ -110,18 +115,26 @@ const Game = () => {
   };
 
   const saveRecord = () => {
+    const boardSizeString = boardSize + " X " + boardSize;
     Axios.post("http://localhost:3001/saveRecord", {
-      boardSize: boardSize,
-      winner: titleText,
+      boardSize: boardSizeString,
+      winner: winnerResult,
     }).then(() => {
       setRecord([
         ...record,
         {
-          boardSize: boardSize,
-          winner: titleText,
+          boardSize: boardSizeString,
+          winner: winnerResult,
         },
       ]);
     });
+    window.alert("บันทึกเสร็จสิ้น");
+    setShowBoard(false);
+    setXIsNext(true);
+    setSquaresArray([]);
+    setWinner();
+    setHistory([]);
+    setNumOfFilledSquares(0);
   };
 
   useEffect(() => {
@@ -129,52 +142,93 @@ const Game = () => {
   }, [xIsNext]);
 
   let titleText;
-  if (winner) titleText = `${winner} เป็นผู็ชนะ!!!`;
+  let winnerResult;
+  if (winner) titleText = `ผู้เล่น ${winner} ชนะ!!!`;
   else {
     if (numOfFilledSquares === boardSize * boardSize) titleText = `เสมอ`;
-    else titleText = `ผู้เล่น ${xIsNext ? "X" : "O"}'เป็นคนถัดไป`;
+    else titleText = `ผู้เล่น ${xIsNext ? "X" : "O"} เลือกช่อง`;
   }
+  winnerResult = titleText;
 
   return (
     <div className="game-area">
-      {!showBoard && (
-        <form onSubmit={handleBoardSizeSubmit}>
-          <label htmlFor="boardSizeInput">
-            กรอกขนาดของบอร์ดที่ต้องการเล่น:
-          </label>
-          <input
-            type="number"
-            min={"1"}
-            id="boardSizeInput"
-            value={boardSize}
-            onChange={(e) => setBoardSize(parseInt(e.target.value))}
-          />
-          <button type="submit">เริ่มเกม</button>
-        </form>
-      )}
-      {showBoard && (
-        <Fragment>
-          <h3>{titleText}</h3>
-          <Board
-            boardSize={boardSize}
-            squaresArray={squaresArray}
-            squareClickHandler={squareClickHandler}
-          />
-          <button onClick={resetHandler}>รีเซ็ต</button>
-          <button onClick={changeSizeHandler}>เปลี่ยนขนาดบอร์ด</button>
-          <button onClick={saveRecord}>บันทึกประวัติการเล่น</button>
-          <History history={history} />
-        </Fragment>
-      )}
-      <button onClick={getRecord}>ดูประวัติการเล่น</button>
-      {record.map((val, key) => {
-        return (
-          <div>
-            <p>Board Size {val.boardSize}</p>
-            <p>Winner {val.winner}</p>
-          </div>
-        );
-      })}
+      <div className="show-board">
+        <h1>Tic Tac Toe</h1>
+        {!showBoard && (
+          <form onSubmit={handleBoardSizeSubmit}>
+            <div className="title">
+              <label className="Text" htmlFor="boardSizeInput">
+                กรอกขนาดของบอร์ดที่ต้องการเล่น:
+              </label>
+              <input
+                type="number"
+                min={"1"}
+                id="boardSizeInput"
+                value={boardSize}
+                onChange={(e) => setBoardSize(parseInt(e.target.value))}
+              />
+              <button type="submit" className="btnSubmit">
+                เริ่มเกม
+              </button>
+            </div>
+          </form>
+        )}
+        {showBoard && (
+          <Fragment>
+            <h3 className="Text">{titleText}</h3>
+            <Board
+              boardSize={boardSize}
+              squaresArray={squaresArray}
+              squareClickHandler={squareClickHandler}
+            />
+            <div className="option">
+              <button onClick={resetHandler} className="btnReset">
+                รีเซ็ต
+              </button>
+              <button onClick={changeSizeHandler} className="btnChangeBoard">
+                เปลี่ยนขนาดบอร์ด
+              </button>
+            </div>
+            {titleText !== "เสมอ" ||
+              (winner && (
+                <Fragment>
+                  <label className="Text" htmlFor="boardSizeInput">
+                    คุณต้องการบันทึกประวัติการเล่นหรือไม่ ?
+                  </label>
+                  <button onClick={saveRecord} className="btnSave">
+                    บันทึก
+                  </button>
+                </Fragment>
+              ))}
+          </Fragment>
+        )}
+
+        {!showBoard && (
+          <Fragment>
+            <button onClick={getRecord} className="btnCheckRecord">
+              ดูประวัติการเล่น
+            </button>
+            <table className="record-table">
+              <thead>
+                <tr>
+                  <th>บอร์ด</th>
+                  <th>ผลการแข่ง</th>
+                </tr>
+              </thead>
+              <tbody>
+                {record.map((val, key) => {
+                  return (
+                    <tr key={key}>
+                      <td>{val.boardSize}</td>
+                      <td>{val.winner}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </Fragment>
+        )}
+      </div>
     </div>
   );
 };

@@ -1,0 +1,169 @@
+.game-area{
+    background-color: #0093a3;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+}
+
+.show-board{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.option{
+    margin-top: 8px;
+}
+
+.btnSubmit {
+    border-radius: 10px;
+    font-size: 24px;
+    color: #fff;
+    background-color: #00d11f;
+    outline: none;
+    border: none;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btnSubmit:hover {
+    background-color: #00a51b;
+}
+
+.btnSubmit:active {
+    background-color: #007f13;
+}
+
+.btnCheckRecord{
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 24px;
+    color: #fff;
+    background-color: #8f00d1;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btnCheckRecord:hover {
+    background-color: #6d00a0;
+}
+
+.btnCheckRecord:active {
+    background-color: #3c0058;
+}
+
+.btnReset {
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 24px;
+    color: #fff;
+    background-color: #f25100;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    margin-right: 8px;
+    transition: background-color 0.3s;
+}
+
+.btnReset:hover {
+    background-color: #b23c01;
+}
+
+.btnReset:active {
+    background-color: #6b2400;
+}
+
+.btnChangeBoard {
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 24px;
+    color: #fff;
+    background-color: #022cd0;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    margin-right: 8px;
+    transition: background-color 0.3s;
+}
+
+.btnChangeBoard:hover {
+    background-color: #0021a5;
+}
+
+.btnChangeBoard:active {
+    background-color: #00135e;
+}
+
+.btnSave {
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 24px;
+    color: #fff;
+    background-color: #62d462;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background-color 0.3s;
+}
+
+.btnSave:hover {
+    background-color: #4a9f4a;
+}
+
+.btnSave:active {
+    background-color: #254f25;
+}
+
+.Text{
+    color: #fff;
+    font-size: 24px;
+}
+
+input {
+    width: 50%;
+    margin-top: 10px;
+    border: 2px solid red;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 24px;
+}
+
+h1 {
+    color: #fff;
+    font-size: 50px;
+}
+
+p{
+    color: #fff;
+}
+
+.record-table {
+    margin-top: 16px;
+    color: white;
+    border-collapse: collapse;
+}
+
+.record-table th,
+.record-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.record-table th {
+    background-color: #8f00d1;
+}
