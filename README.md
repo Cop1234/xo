@@ -12,5 +12,4 @@
 12. ![Screenshot 2024-03-24 084957](https://github.com/Cop1234/xo/assets/98316787/18f921e8-9c15-4c0e-89f1-8209a63bc461)
 13. จะได้ตาราง history ตามรูป
 14. ![image](https://github.com/Cop1234/xo/assets/98316787/25bd08d2-ea79-4418-8748-1d52d3915be0)
-15. เปิดโปรแกรม visual studio code ขึ้นมา
-16. 
+15. เปิดโปรแกรม visual studio code ขึ้นมา เลือกไฟล์ที่ต้องการ Clone project
