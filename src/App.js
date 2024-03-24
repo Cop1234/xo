@@ -164,17 +164,17 @@ const Game = () => {
           <button onClick={changeSizeHandler}>เปลี่ยนขนาดบอร์ด</button>
           <button onClick={saveRecord}>บันทึกประวัติการเล่น</button>
           <History history={history} />
-          <button onClick={getRecord}>แสดงประวัติการเล่น XO </button>
-          {record.map((val, key) => {
-            return (
-              <div>
-                <p>Board Size {val.boardSize}</p>
-                <p>Winner {val.winner}</p>
-              </div>
-            );
-          })}
         </Fragment>
       )}
+      <button onClick={getRecord}>ดูประวัติการเล่น</button>
+      {record.map((val, key) => {
+        return (
+          <div>
+            <p>Board Size {val.boardSize}</p>
+            <p>Winner {val.winner}</p>
+          </div>
+        );
+      })}
     </div>
   );
 };
