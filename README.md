@@ -23,9 +23,9 @@
 23. เมื่อ cd xo แล้วให้ใช้คำสั่ง npm i เพื่อติดตั้ง node_modules
 24. ![image](https://github.com/Cop1234/xo/assets/98316787/ca04012e-6a64-49e6-823b-fa3d17273208)
 25. กด New Terminal
-26. ![Screenshot 2024-03-24 092632](https://github.com/Cop1234/xo/assets/98316787/c5ec2c8a-10d1-4228-9f02-d74cdf4d3ac0)
+26. ![Screenshot 2024-03-24 093310](https://github.com/Cop1234/xo/assets/98316787/1292d9f2-6605-45c8-8fac-da4baa74fb99)
 27. Terminal อันแรกให้ใช้คำสั้ง cd server 
-28. 
+28. ![image](https://github.com/Cop1234/xo/assets/98316787/7f78999e-1f1a-4784-846d-09471c7ba52b)
 29. แล้ว
 
 
