@@ -5,10 +5,12 @@
 5. ![image](https://github.com/Cop1234/xo/assets/98316787/82e7b5fb-083b-480f-b441-f86a9729d236)
 6. เมื่อสร้างเสร็จจะต้องแสดงขึ้นมาแบบนี้
 7. ![image](https://github.com/Cop1234/xo/assets/98316787/0da7005c-0c80-4699-b426-1e00a42eebfb)
-8. ให้กด Create a new SQL แล้วใส่โค้ดนี้
+8. ให้กด Create a new SQL
 9. ![Screenshot 2024-03-24 084222](https://github.com/Cop1234/xo/assets/98316787/3b3a0835-772b-47cf-bbc4-833209130cdb)
-10. CREATE TABLE History (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    boardSize VARCHAR(255),
-    winner VARCHAR(255)
-    );
+10. สร้างตารางตามรูป
+11. ![image](https://github.com/Cop1234/xo/assets/98316787/09776f3c-ba4c-4ba7-9139-662130002fd0)
+12. ![Screenshot 2024-03-24 084957](https://github.com/Cop1234/xo/assets/98316787/18f921e8-9c15-4c0e-89f1-8209a63bc461)
+13. จะได้ตาราง history ตามรูป
+14. ![image](https://github.com/Cop1234/xo/assets/98316787/25bd08d2-ea79-4418-8748-1d52d3915be0)
+15. เปิดโปรแกรม visual studio code ขึ้นมา
+16. 
