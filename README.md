@@ -26,6 +26,11 @@
 26. ![Screenshot 2024-03-24 093310](https://github.com/Cop1234/xo/assets/98316787/1292d9f2-6605-45c8-8fac-da4baa74fb99)
 27. Terminal อันแรกให้ใช้คำสั้ง cd server 
 28. ![image](https://github.com/Cop1234/xo/assets/98316787/7f78999e-1f1a-4784-846d-09471c7ba52b)
-29. แล้ว
-
-
+29. แล้วใช้คำสั่ง npm run dev เพื่อเชื่อมกับฐานข้อมูล
+30. ![image](https://github.com/Cop1234/xo/assets/98316787/69d790da-c326-487e-8db4-cf8c8e760e17)
+31. เมื่อเชื่อมฐานข้อมูลได้จะขึ้นแบบนี้
+32. ![image](https://github.com/Cop1234/xo/assets/98316787/266701ea-deba-4d63-b0a6-0a5ab08a2025)
+33. Terminal อันที่สองให้ใช้คำสั่ง npm start เพื่อเปิดเว็บไซต์
+34. ![image](https://github.com/Cop1234/xo/assets/98316787/0c6798a5-3fef-4766-8d89-f5222d59ab31)
+35. หน้าเว็บ
+36. ![image](https://github.com/Cop1234/xo/assets/98316787/d3224981-afaa-4afe-87f8-09ba79dd28a3)
