@@ -1,4 +1,4 @@
-1. เปิดโปรแกรม MySQL Workbench
+![image](https://github.com/Cop1234/xo/assets/98316787/2f7041f8-41c2-4e3e-b527-8598defb4ca8)1. เปิดโปรแกรม MySQL Workbench
 2. Create schema
 3. ![Screenshot 2024-03-24 083309](https://github.com/Cop1234/xo/assets/98316787/637b8161-a555-4138-8adf-1565addb4638)
 4. ตั้งชื่อ schema "game_xo" และกำหนด Collation เป็น utf8-utf8_unicode_ci
@@ -16,4 +16,6 @@
 16. ![image](https://github.com/Cop1234/xo/assets/98316787/8185fde8-960f-44d0-b29e-527229dc7e85)
 17. Copy link ในหน้า Git hub
 18. ![Screenshot 2024-03-24 091340](https://github.com/Cop1234/xo/assets/98316787/5cb06e92-1b1f-442e-aaed-3635f03d826d)
-19. 
+19. ใช้คำสั่ง git clone
+20. ![image](https://github.com/Cop1234/xo/assets/98316787/8ea57019-94de-444e-b7b0-97d4e393d991)
+
