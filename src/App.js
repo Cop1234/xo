@@ -13,6 +13,7 @@ const Game = () => {
   const [winner, setWinner] = useState();
   const [numOfFilledSquares, setNumOfFilledSquares] = useState(0);
   const [showBoard, setShowBoard] = useState(false);
+  const [showRecord, setShowRecord] = useState(false);
   const [record, setRecord] = useState([]);
 
   const getAllSolutions = () => {
@@ -96,6 +97,7 @@ const Game = () => {
 
   const changeSizeHandler = () => {
     setShowBoard(false);
+    setShowRecord(false);
     setXIsNext(true);
     setSquaresArray([]);
     setWinner();
@@ -130,6 +132,7 @@ const Game = () => {
     });
     window.alert("บันทึกเสร็จสิ้น");
     setShowBoard(false);
+    setShowRecord(false);
     setXIsNext(true);
     setSquaresArray([]);
     setWinner();
@@ -142,13 +145,16 @@ const Game = () => {
   }, [xIsNext]);
 
   let titleText;
-  let winnerResult;
-  if (winner) titleText = `ผู้เล่น ${winner} ชนะ!!!`;
-  else {
-    if (numOfFilledSquares === boardSize * boardSize) titleText = `เสมอ`;
-    else titleText = `ผู้เล่น ${xIsNext ? "X" : "O"} เลือกช่อง`;
+  let winnerResult = null;
+  if (winner) {
+    titleText = `ผู้เล่น ${winner} ชนะ!!!`;
+    winnerResult = titleText;
+  } else {
+    if (numOfFilledSquares === boardSize * boardSize) {
+      titleText = `เสมอ`;
+      winnerResult = titleText;
+    } else titleText = `ผู้เล่น ${xIsNext ? "X" : "O"} เลือกช่อง`;
   }
-  winnerResult = titleText;
 
   return (
     <div className="game-area">
@@ -189,43 +195,50 @@ const Game = () => {
                 เปลี่ยนขนาดบอร์ด
               </button>
             </div>
-            {titleText !== "เสมอ" ||
-              (winner && (
-                <Fragment>
-                  <label className="Text" htmlFor="boardSizeInput">
-                    คุณต้องการบันทึกประวัติการเล่นหรือไม่ ?
-                  </label>
-                  <button onClick={saveRecord} className="btnSave">
-                    บันทึก
-                  </button>
-                </Fragment>
-              ))}
+            {winnerResult != null && (
+              <Fragment>
+                <label className="Text" htmlFor="boardSizeInput">
+                  คุณต้องการบันทึกประวัติการเล่นหรือไม่ ?
+                </label>
+                <button onClick={saveRecord} className="btnSave">
+                  บันทึก
+                </button>
+              </Fragment>
+            )}
           </Fragment>
         )}
 
         {!showBoard && (
           <Fragment>
-            <button onClick={getRecord} className="btnCheckRecord">
+            <button
+              onClick={() => {
+                getRecord();
+                setShowRecord(true);
+              }}
+              className="btnCheckRecord"
+            >
               ดูประวัติการเล่น
             </button>
-            <table className="record-table">
-              <thead>
-                <tr>
-                  <th>บอร์ด</th>
-                  <th>ผลการแข่ง</th>
-                </tr>
-              </thead>
-              <tbody>
-                {record.map((val, key) => {
-                  return (
-                    <tr key={key}>
-                      <td>{val.boardSize}</td>
-                      <td>{val.winner}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+            {showRecord && (
+              <table className="record-table">
+                <thead>
+                  <tr>
+                    <th>บอร์ด</th>
+                    <th>ผลการแข่ง</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {record.map((val, key) => {
+                    return (
+                      <tr key={key}>
+                        <td>{val.boardSize}</td>
+                        <td>{val.winner}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            )}
           </Fragment>
         )}
       </div>
