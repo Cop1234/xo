@@ -1,3 +1,2 @@
-เปิดโปรแกรม MySQL Workbench
-Create schema
-![Uploading image.png…]()
+1. เปิดโปรแกรม MySQL Workbench
+2. Create schema
