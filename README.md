@@ -5,4 +5,10 @@
 5. ![image](https://github.com/Cop1234/xo/assets/98316787/82e7b5fb-083b-480f-b441-f86a9729d236)
 6. เมื่อสร้างเสร็จจะต้องแสดงขึ้นมาแบบนี้
 7. ![image](https://github.com/Cop1234/xo/assets/98316787/0da7005c-0c80-4699-b426-1e00a42eebfb)
-8. 
+8. ให้กด Create a new SQL แล้วใส่โค้ดนี้
+9. ![Screenshot 2024-03-24 084222](https://github.com/Cop1234/xo/assets/98316787/3b3a0835-772b-47cf-bbc4-833209130cdb)
+10. CREATE TABLE History (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    boardSize VARCHAR(255),
+    winner VARCHAR(255)
+    );
